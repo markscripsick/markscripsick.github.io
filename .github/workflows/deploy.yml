@@ -26,8 +26,11 @@ jobs:
 
       - name: Install, build, and upload the site
         uses: withastro/action@v3
+        with:
+          # Astro 6 requires Node >= 22.12; the action defaults to Node 20.
+          node-version: 22
         # The official Astro action runs npm ci + astro build and uploads
-        # the dist/ folder as the Pages artifact. Node 20 is the default.
+        # the dist/ folder as the Pages artifact.
 
   deploy:
     needs: build
