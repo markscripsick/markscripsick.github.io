@@ -1,0 +1,222 @@
+---
+/**
+ * Reusable image gallery with an accessible lightbox.
+ *
+ * Usage (already wired into project pages — you just fill `gallery` in a
+ * project's frontmatter):
+ *
+ *   <Gallery images={project.data.gallery} />
+ *
+ * Each image is { src, alt, caption? }. Drop your SolidWorks renders,
+ * photos, and screenshots into /public/images/... and reference the path.
+ */
+interface GalleryImage {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+interface Props {
+  images: GalleryImage[];
+}
+const { images } = Astro.props;
+---
+
+{
+  images.length > 0 && (
+    <section class="gallery" aria-label="Project gallery">
+      <ul class="grid">
+        {images.map((img, i) => (
+          <li>
+            <button
+              class="tile"
+              type="button"
+              data-index={i}
+              aria-label={`Open image: ${img.alt}`}
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="450"
+              />
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <dialog class="lightbox" aria-label="Image viewer">
+        <button class="lb-close" type="button" aria-label="Close (Esc)">
+          ✕
+        </button>
+        <button class="lb-nav lb-prev" type="button" aria-label="Previous image">
+          ‹
+        </button>
+        <figure class="lb-figure">
+          <img class="lb-img" src="" alt="" />
+          <figcaption class="lb-caption" />
+        </figure>
+        <button class="lb-nav lb-next" type="button" aria-label="Next image">
+          ›
+        </button>
+      </dialog>
+
+      <script
+        is:inline
+        define:vars={{ images }}
+      >
+        (() => {
+          const root = document.currentScript.closest('.gallery');
+          const dialog = root.querySelector('.lightbox');
+          const lbImg = root.querySelector('.lb-img');
+          const lbCap = root.querySelector('.lb-caption');
+          let current = 0;
+
+          const show = (i) => {
+            current = (i + images.length) % images.length;
+            const img = images[current];
+            lbImg.src = img.src;
+            lbImg.alt = img.alt;
+            lbCap.textContent = img.caption || '';
+            lbCap.style.display = img.caption ? '' : 'none';
+          };
+
+          root.querySelectorAll('.tile').forEach((btn) => {
+            btn.addEventListener('click', () => {
+              show(Number(btn.dataset.index));
+              dialog.showModal();
+            });
+          });
+
+          root.querySelector('.lb-close').addEventListener('click', () =>
+            dialog.close(),
+          );
+          root
+            .querySelector('.lb-prev')
+            .addEventListener('click', () => show(current - 1));
+          root
+            .querySelector('.lb-next')
+            .addEventListener('click', () => show(current + 1));
+
+          dialog.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') show(current + 1);
+            if (e.key === 'ArrowLeft') show(current - 1);
+          });
+          // Click on backdrop closes.
+          dialog.addEventListener('click', (e) => {
+            if (e.target === dialog) dialog.close();
+          });
+        })();
+      </script>
+    </section>
+  )
+}
+
+<style>
+  .grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.85rem;
+  }
+  .tile {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: zoom-in;
+    background: var(--surface-2);
+    aspect-ratio: 4 / 3;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  .tile:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+  .tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .lightbox {
+    border: none;
+    background: transparent;
+    max-width: 96vw;
+    max-height: 96vh;
+    padding: 0;
+    margin: auto;
+    color: #fff;
+  }
+  .lightbox::backdrop {
+    background: rgba(10, 12, 16, 0.86);
+    backdrop-filter: blur(2px);
+  }
+  .lb-figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .lb-img {
+    max-width: 88vw;
+    max-height: 82vh;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+  .lb-caption {
+    color: #e9ecf0;
+    font-size: 0.9rem;
+    text-align: center;
+    max-width: 60ch;
+  }
+  .lb-close,
+  .lb-nav {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+  .lb-close:hover,
+  .lb-nav:hover {
+    background: rgba(255, 255, 255, 0.22);
+  }
+  .lb-close {
+    top: 1rem;
+    right: 1rem;
+  }
+  .lb-prev {
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .lb-next {
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  @media (max-width: 640px) {
+    .lb-prev {
+      left: 0.4rem;
+    }
+    .lb-next {
+      right: 0.4rem;
+    }
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CertCard from '../../components/CertCard.astro';
+
+const certs = (await getCollection('certifications')).sort((a, b) => {
+  // Higher `order` first, then in-progress before completed, then newest date.
+  if (b.data.order !== a.data.order) return b.data.order - a.data.order;
+  if (a.data.status !== b.data.status)
+    return a.data.status === 'in-progress' ? -1 : 1;
+  return (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0);
+});
+---
+
+<BaseLayout
+  title="Certifications"
+  description="Engineering certifications earned and in progress, including SolidWorks (CSWA)."
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Credentials</p>
+      <h1>Certifications</h1>
+      <p class="lead">Certifications earned and currently in progress.</p>
+
+      {
+        certs.length > 0 ? (
+          <div class="cert-grid">
+            {certs.map((cert) => (
+              <CertCard cert={cert} />
+            ))}
+          </div>
+        ) : (
+          <p>Certifications coming soon.</p>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+</style>

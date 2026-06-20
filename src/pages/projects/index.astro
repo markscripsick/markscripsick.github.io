@@ -1,0 +1,110 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Unique skill list for the filter bar.
+const skills = [...new Set(projects.flatMap((p) => p.data.skills))].sort();
+---
+
+<BaseLayout
+  title="Projects"
+  description="Mechanical engineering projects: CAD/SolidWorks, robotics, and hands-on design-build work."
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Portfolio</p>
+      <h1>Projects</h1>
+      <p class="lead">
+        Design-build, CAD, and robotics work. Filter by skill below.
+      </p>
+
+      {
+        skills.length > 0 && (
+          <div class="filters" role="group" aria-label="Filter projects by skill">
+            <button class="filter-btn is-active" type="button" data-filter="all">
+              All
+            </button>
+            {skills.map((skill) => (
+              <button class="filter-btn" type="button" data-filter={skill}>
+                {skill}
+              </button>
+            ))}
+          </div>
+        )
+      }
+
+      <div class="grid-cards" id="project-grid">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
+
+      <p class="empty" id="empty-msg" hidden>
+        No projects match that skill yet.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.project-card');
+  const empty = document.getElementById('empty-msg');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      buttons.forEach((b) => b.classList.toggle('is-active', b === btn));
+
+      let visible = 0;
+      cards.forEach((card) => {
+        const skills = (card.dataset.skills || '').split('|');
+        const show = filter === 'all' || skills.includes(filter!);
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      if (empty) empty.hidden = visible !== 0;
+    });
+  });
+</script>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.5rem 0 2rem;
+  }
+  .filter-btn {
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--ink-soft);
+    transition: all 0.12s ease;
+  }
+  .filter-btn:hover {
+    border-color: var(--ink-faint);
+    color: var(--ink);
+  }
+  .filter-btn.is-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-contrast);
+  }
+  .grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .empty {
+    color: var(--ink-faint);
+    margin-top: 2rem;
+  }
+</style>

@@ -1,0 +1,128 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { SITE, CONTACT } from '../config';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Featured projects for the home grid; fall back to the 3 most recent.
+const featured = projects.filter((p) => p.data.featured);
+const homeProjects = (featured.length ? featured : projects).slice(0, 3);
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="hero section">
+    <div class="container">
+      <p class="eyebrow">{SITE.role}</p>
+      <h1>{SITE.name}</h1>
+      <p class="lead hero-tag">{SITE.tagline}</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/projects">View projects</a>
+        <a class="btn btn-ghost" href={SITE.resume}>Download résumé</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured projects -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Featured projects</h2>
+        <a class="see-all" href="/projects">All projects →</a>
+      </div>
+      <div class="grid-cards">
+        {homeProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick links -->
+  <section class="section quick">
+    <div class="container">
+      <h2>Quick links</h2>
+      <div class="quick-grid">
+        <a class="card quick-card" href="/certifications">
+          <h3>Certifications →</h3>
+          <p>Credentials earned and in progress.</p>
+        </a>
+        <a class="card quick-card" href="/about">
+          <h3>About me →</h3>
+          <p>Background, skills, and résumé.</p>
+        </a>
+        <a class="card quick-card" href="/contact">
+          <h3>Contact →</h3>
+          <p>Email, LinkedIn, and GitHub.</p>
+        </a>
+        {CONTACT.github && (
+          <a class="card quick-card" href={CONTACT.github} rel="me noopener">
+            <h3>GitHub ↗</h3>
+            <p>Code and build files.</p>
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: clamp(3rem, 9vw, 6rem);
+  }
+  .hero h1 {
+    margin: 0.1em 0 0.2em;
+  }
+  .hero-tag {
+    max-width: 40ch;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .see-all {
+    color: var(--accent-ink);
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .quick-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .quick-card {
+    padding: 1.2rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .quick-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(27, 36, 48, 0.1);
+  }
+  .quick-card h3 {
+    margin: 0 0 0.3rem;
+    color: var(--accent-ink);
+  }
+  .quick-card p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+</style>

@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTACT } from '../config';
+
+const links = [
+  CONTACT.email && {
+    label: 'Email',
+    value: CONTACT.email,
+    href: `mailto:${CONTACT.email}`,
+  },
+  CONTACT.linkedin && {
+    label: 'LinkedIn',
+    value: CONTACT.linkedin.replace(/^https?:\/\/(www\.)?/, ''),
+    href: CONTACT.linkedin,
+  },
+  CONTACT.github && {
+    label: 'GitHub',
+    value: CONTACT.github.replace(/^https?:\/\/(www\.)?/, ''),
+    href: CONTACT.github,
+  },
+].filter(Boolean) as { label: string; value: string; href: string }[];
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with Mark Scripsick — email, LinkedIn, and GitHub."
+>
+  <section class="section">
+    <div class="container prose">
+      <p class="eyebrow">Get in touch</p>
+      <h1>Contact</h1>
+      <p class="lead">
+        I'm open to internships, co-ops, and design-build collaborations. The
+        best way to reach me is email.
+      </p>
+
+      <ul class="contact-list">
+        {
+          links.map((link) => (
+            <li class="card contact-item">
+              <span class="contact-label">{link.label}</span>
+              <a href={link.href} rel="me noopener">
+                {link.value}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-list {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+  }
+  .contact-label {
+    font-weight: 600;
+    color: var(--ink-faint);
+    min-width: 6rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .contact-item a {
+    color: var(--accent-ink);
+    text-decoration: none;
+    font-weight: 600;
+    word-break: break-word;
+  }
+  .contact-item a:hover {
+    text-decoration: underline;
+  }
+</style>

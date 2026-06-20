@@ -1,0 +1,91 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const { data, id } = project;
+const skillsAttr = data.skills.join('|'); // used by the Projects filter
+---
+
+<article class="card project-card" data-skills={skillsAttr}>
+  <a class="thumb" href={`/projects/${id}/`} tabindex="-1" aria-hidden="true">
+    <img
+      src={data.heroImage}
+      alt={data.heroAlt || ''}
+      loading="lazy"
+      decoding="async"
+      width="800"
+      height="500"
+    />
+  </a>
+  <div class="body">
+    <h3 class="title">
+      <a href={`/projects/${id}/`}>{data.title}</a>
+    </h3>
+    <p class="summary">{data.summary}</p>
+    {
+      data.skills.length > 0 && (
+        <ul class="tags" aria-label="Skills">
+          {data.skills.map((s) => (
+            <li class="chip">{s}</li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(27, 36, 48, 0.1);
+  }
+  .thumb {
+    display: block;
+    aspect-ratio: 8 / 5;
+    background: var(--surface-2);
+    overflow: hidden;
+  }
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .body {
+    padding: 1.1rem 1.2rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .title {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  .title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .title a:hover {
+    color: var(--accent-ink);
+  }
+  .summary {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin: 0.2rem 0 0;
+    padding: 0;
+  }
+</style>

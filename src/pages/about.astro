@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config';
+
+// Edit your skills here. Group label → list of skills.
+const skillGroups = [
+  {
+    label: 'CAD & Design',
+    items: ['SolidWorks', 'Parametric modeling', 'GD&T', 'DFM / design-for-manufacturing'],
+  },
+  {
+    label: 'Robotics',
+    items: ['Mechanism design', 'Circuit integration', 'Sensors & actuators', 'Systems integration'],
+  },
+  {
+    label: 'Manufacturing & Build',
+    items: ['3D printing (FDM)', 'Rapid prototyping', 'Machining basics', 'Assembly & testing'],
+  },
+  {
+    label: 'Software',
+    items: ['Python', 'Data & scripting', 'Git / GitHub'],
+  },
+];
+---
+
+<BaseLayout
+  title="About"
+  description="About Mark Scripsick — Mechanical Engineering student at Texas A&M focused on CAD, robotics, and hands-on design-build."
+>
+  <section class="section">
+    <div class="container about-grid">
+      <div class="prose">
+        <p class="eyebrow">About</p>
+        <h1>About me</h1>
+
+        <!-- PLACEHOLDER BIO — replace with your own. -->
+        <p>
+          I'm a Mechanical Engineering student at Texas A&amp;M University with a
+          focus on CAD/SolidWorks, robotics, and hands-on design-build work. I
+          like turning an idea into a part you can hold — from concept sketches
+          and parametric models to printed prototypes and tested assemblies.
+        </p>
+        <p>
+          Recent work spans community-driven 3D-printed assistive devices and
+          team leadership in collegiate robotics, where I coordinate mechanical
+          design, circuit integration, and software. I care about clean
+          execution, manufacturability, and building things that actually work
+          for the people who use them.
+        </p>
+        <p>
+          <a class="btn btn-primary" href={SITE.resume}>Download résumé (PDF)</a>
+        </p>
+      </div>
+
+      <aside class="skills">
+        <h2 class="skills-title">Skills</h2>
+        {
+          skillGroups.map((group) => (
+            <div class="skill-group">
+              <h3>{group.label}</h3>
+              <ul>
+                {group.items.map((item) => (
+                  <li class="chip">{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
+  @media (max-width: 800px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+  .skills {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 5rem;
+  }
+  .skills-title {
+    margin-top: 0;
+  }
+  .skill-group {
+    margin-bottom: 1.2rem;
+  }
+  .skill-group h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    margin: 0 0 0.6rem;
+  }
+  .skill-group ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+  }
+</style>

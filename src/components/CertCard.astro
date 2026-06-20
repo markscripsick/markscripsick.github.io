@@ -1,0 +1,112 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  cert: CollectionEntry<'certifications'>;
+}
+const { cert } = Astro.props;
+const { data } = cert;
+
+const dateLabel = data.date
+  ? data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })
+  : null;
+const inProgress = data.status === 'in-progress';
+---
+
+<article class="card cert-card">
+  {
+    data.logo ? (
+      <img class="logo" src={data.logo} alt={`${data.issuer} logo`} width="56" height="56" loading="lazy" />
+    ) : (
+      <div class="logo logo-fallback" aria-hidden="true">
+        {data.name.charAt(0)}
+      </div>
+    )
+  }
+  <div class="cert-body">
+    <h3 class="cert-name">{data.name}</h3>
+    <p class="issuer">{data.issuer}</p>
+    <div class="meta">
+      <span class={`status ${inProgress ? 'status-progress' : 'status-done'}`}>
+        {inProgress ? 'In progress' : 'Completed'}
+      </span>
+      {dateLabel && <span class="date">{dateLabel}</span>}
+      {
+        data.credentialUrl && (
+          <a class="cred" href={data.credentialUrl} rel="noopener">
+            View credential ↗
+          </a>
+        )
+      }
+    </div>
+  </div>
+</article>
+
+<style>
+  .cert-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.1rem 1.2rem;
+    align-items: flex-start;
+  }
+  .logo {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    object-fit: contain;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 6px;
+  }
+  .logo-fallback {
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--accent-ink);
+  }
+  .cert-body {
+    min-width: 0;
+  }
+  .cert-name {
+    font-size: 1.1rem;
+    margin: 0 0 0.15rem;
+  }
+  .issuer {
+    margin: 0 0 0.6rem;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  .status {
+    font-weight: 600;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+  }
+  .status-done {
+    color: #1f6b3b;
+    background: color-mix(in srgb, #1f6b3b 12%, transparent);
+  }
+  .status-progress {
+    color: var(--accent-ink);
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+  .date {
+    color: var(--ink-faint);
+  }
+  .cred {
+    color: var(--accent-ink);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .cred:hover {
+    text-decoration: underline;
+  }
+</style>
