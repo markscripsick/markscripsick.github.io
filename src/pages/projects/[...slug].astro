@@ -98,13 +98,17 @@ const dateLabel = data.date.toLocaleDateString('en-US', {
 <style>
   .back {
     display: inline-block;
-    margin-bottom: 1.5rem;
-    color: var(--ink-soft);
+    margin-bottom: 2rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
     text-decoration: none;
-    font-weight: 500;
+    transition: color 0.2s var(--ease);
   }
   .back:hover {
-    color: var(--accent-ink);
+    color: var(--ink);
   }
   .project-head {
     max-width: var(--maxw-prose);

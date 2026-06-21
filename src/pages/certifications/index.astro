@@ -18,9 +18,11 @@ const certs = (await getCollection('certifications')).sort((a, b) => {
 >
   <section class="section">
     <div class="container">
-      <p class="eyebrow">Credentials</p>
-      <h1>Certifications</h1>
-      <p class="lead">Certifications earned and currently in progress.</p>
+      <div class="page-head">
+        <p class="eyebrow">Credentials</p>
+        <h1>Certifications</h1>
+        <p class="lead">Certifications earned and currently in progress.</p>
+      </div>
 
       {
         certs.length > 0 ? (
@@ -38,10 +40,13 @@ const certs = (await getCollection('certifications')).sort((a, b) => {
 </BaseLayout>
 
 <style>
+  .page-head {
+    max-width: var(--maxw-prose);
+  }
   .cert-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 1.1rem;
+    margin-top: 2.5rem;
   }
 </style>

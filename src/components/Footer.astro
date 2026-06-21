@@ -5,8 +5,11 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="copy">© {year} {SITE.name}</p>
-    <ul class="links">
+    <div class="footer-brand">
+      <p class="f-name">{SITE.name}</p>
+      <p class="f-tag">{SITE.role}</p>
+    </div>
+    <ul class="links" aria-label="Elsewhere">
       {CONTACT.email && (
         <li><a href={`mailto:${CONTACT.email}`}>Email</a></li>
       )}
@@ -17,6 +20,10 @@ const year = new Date().getFullYear();
         <li><a href={CONTACT.github} rel="me noopener">GitHub</a></li>
       )}
     </ul>
+  </div>
+  <div class="container footer-base">
+    <p class="copy">© {year} {SITE.name}</p>
+    <p class="built">Built with Astro</p>
   </div>
 </footer>
 
@@ -29,30 +36,60 @@ const year = new Date().getFullYear();
   .footer-inner {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem 1.25rem;
-    align-items: center;
+    gap: 1.5rem;
+    align-items: flex-start;
     justify-content: space-between;
-    padding-block: 1.5rem;
+    padding-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding-bottom: 1.75rem;
   }
-  .copy {
+  .f-name {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.25rem;
+  }
+  .f-tag {
     margin: 0;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.68rem;
     color: var(--ink-faint);
-    font-size: 0.9rem;
   }
   .links {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     list-style: none;
     margin: 0;
     padding: 0;
   }
   .links a {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.7rem;
     color: var(--ink-soft);
     text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
+    transition: color 0.2s var(--ease);
   }
   .links a:hover {
-    color: var(--accent-ink);
+    color: var(--ink);
+  }
+  .footer-base {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    justify-content: space-between;
+    padding-top: 1.25rem;
+    padding-bottom: 1.75rem;
+    border-top: 1px solid var(--border-soft);
+  }
+  .footer-base p {
+    margin: 0;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.64rem;
+    color: var(--ink-faint);
   }
 </style>

@@ -26,6 +26,33 @@ export const SITE = {
 
   /** Path to your resume PDF in /public. Replace the placeholder file. */
   resume: '/resume.pdf',
+
+  /**
+   * OPTIONAL small headshot shown in the top-left corner of the header
+   * (on every page). Leave '' to hide it. To add one later: drop a square
+   * photo in /public (e.g. /public/headshot.jpg) and set the path here —
+   * that's the only change needed.
+   */
+  headshot: '', // e.g. '/headshot.jpg'
+} as const;
+
+/**
+ * HOME HERO — the split-screen panel. Edit the copy and feature image here.
+ * `accent` renders in italic serif (the editorial accent line).
+ */
+export const HERO = {
+  eyebrow: 'Mechanical Engineering — Texas A&M',
+  headline: 'Mark Scripsick',
+  accent: 'mechanical engineer & design-builder', // shown italic
+  intro:
+    'CAD and SolidWorks, robotics, and hands-on prototyping — turning ideas into parts you can hold.',
+  /** Feature image (right panel). Replace with a CAD render or project photo. */
+  image: '/images/hero.svg',
+  imageAlt: 'Featured CAD render',
+  /** Small mono caption overlaid on the image. '' to hide. */
+  imageCaption: 'Fig. 01 — Featured work',
+  primary: { label: 'View Projects', href: '/projects' },
+  secondary: { label: 'Download Résumé', href: '/resume.pdf' },
 } as const;
 
 /**

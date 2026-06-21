@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675">
-  <rect width="1200" height="675" fill="#f1efea"/>
-  <rect x="1" y="1" width="1198" height="673" fill="none" stroke="#d9d5cc" stroke-width="2"/>
-  <g fill="#1b2430" font-family="Inter, system-ui, Arial, sans-serif" text-anchor="middle">
-    <circle cx="600" cy="267.5" r="46" fill="none" stroke="#b5532a" stroke-width="6"/>
-    <path d="M 578 277.5 h 44 M 600 255.5 v 44" stroke="#b5532a" stroke-width="6"/>
-    <text x="600" y="367.5" font-size="46" font-weight="700">Assistive Devices</text>
-    <text x="600" y="415.5" font-size="26" fill="#717d8a">hero image — replace me</text>
+  <rect width="1200" height="675" fill="#ece7db"/>
+  <rect x="1" y="1" width="1198" height="673" fill="none" stroke="#d6cfbf" stroke-width="2"/>
+  <g fill="#232019" font-family="'JetBrains Mono', ui-monospace, monospace" text-anchor="middle">
+    <circle cx="600" cy="267.5" r="46" fill="none" stroke="#6c685d" stroke-width="5"/>
+    <path d="M 578 267.5 h 44 M 600 245.5 v 44" stroke="#6c685d" stroke-width="5"/>
+    <text x="600" y="367.5" font-size="40" letter-spacing="2" fill="#232019">ASSISTIVE DEVICES</text>
+    <text x="600" y="411.5" font-size="22" letter-spacing="3" fill="#8a867c">HERO IMAGE — REPLACE ME</text>
   </g>
 </svg>

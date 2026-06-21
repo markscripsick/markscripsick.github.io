@@ -16,11 +16,13 @@ const skills = [...new Set(projects.flatMap((p) => p.data.skills))].sort();
 >
   <section class="section">
     <div class="container">
-      <p class="eyebrow">Portfolio</p>
-      <h1>Projects</h1>
-      <p class="lead">
-        Design-build, CAD, and robotics work. Filter by skill below.
-      </p>
+      <div class="page-head">
+        <p class="eyebrow">Portfolio</p>
+        <h1>Projects</h1>
+        <p class="lead">
+          Design-build, CAD, and robotics work. Filter by skill below.
+        </p>
+      </div>
 
       {
         skills.length > 0 && (
@@ -71,37 +73,43 @@ const skills = [...new Set(projects.flatMap((p) => p.data.skills))].sort();
 </script>
 
 <style>
+  .page-head {
+    max-width: var(--maxw-prose);
+    margin-bottom: 0.5rem;
+  }
   .filters {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 1.5rem 0 2rem;
+    margin: 2rem 0 2.5rem;
   }
   .filter-btn {
-    font: inherit;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.68rem;
     cursor: pointer;
-    padding: 0.4rem 0.9rem;
+    padding: 0.5rem 0.9rem;
     border-radius: 999px;
     border: 1px solid var(--border);
-    background: var(--surface);
+    background: transparent;
     color: var(--ink-soft);
-    transition: all 0.12s ease;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease),
+      background-color 0.2s var(--ease);
   }
   .filter-btn:hover {
     border-color: var(--ink-faint);
     color: var(--ink);
   }
   .filter-btn.is-active {
-    background: var(--accent);
-    border-color: var(--accent);
+    background: var(--char);
+    border-color: var(--char);
     color: var(--accent-contrast);
   }
   .grid-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1.5rem;
   }
   .empty {
     color: var(--ink-faint);

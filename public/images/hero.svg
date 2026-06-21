@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-label="Feature image placeholder">
+  <!-- Full-bleed fill: any cropping just trims the background, never content. -->
+  <rect width="1200" height="1200" fill="#ece7db"/>
+  <!-- faint technical grid (safe to crop) -->
+  <g stroke="#d6cfbf" stroke-width="1">
+    <path d="M0 200H1200M0 400H1200M0 600H1200M0 800H1200M0 1000H1200"/>
+    <path d="M200 0V1200M400 0V1200M600 0V1200M800 0V1200M1000 0V1200"/>
+  </g>
+  <!-- All meaningful content kept within the centered crop-safe zone -->
+  <g fill="none" stroke="#232019" stroke-width="2.5" stroke-linejoin="round">
+    <polygon points="600,320 770,420 770,620 600,720 430,620 430,420"/>
+    <path d="M600,320 600,520 430,620 M600,520 770,620 M600,520 600,720"/>
+    <circle cx="600" cy="520" r="6" fill="#232019"/>
+  </g>
+  <g font-family="'JetBrains Mono', ui-monospace, monospace" text-anchor="middle">
+    <text x="600" y="812" font-size="30" letter-spacing="7" fill="#6c685d">FEATURE IMAGE</text>
+    <text x="600" y="852" font-size="19" letter-spacing="3" fill="#8a867c">REPLACE WITH A CAD RENDER OR PROJECT PHOTO</text>
+  </g>
+</svg>
