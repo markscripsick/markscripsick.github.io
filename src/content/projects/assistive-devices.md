@@ -2,14 +2,12 @@
 title: 3D-Printed Assistive Devices for OT/PT Patients
 date: 2025-03-01
 summary: >-
-  A community project designing and 3D-printing low-cost assistive devices for
-  occupational and physical therapy patients — from adaptive grips to custom
-  daily-living aids.
+  Work with physical therapy department at Panola College to create cost efficient and acessible tools for patients.
 skills:
   - SolidWorks
   - 3D Printing
   - Design for Manufacturing
-  - Community
+  - Networking/Outreach
 heroImage: /images/projects/assistive-devices/hero.svg
 heroAlt: Render of a 3D-printed adaptive grip device
 gallery:
@@ -28,9 +26,6 @@ featured: true
 # embedUrl: https://your-onshape-or-sketchfab-share-link   # future 3D embed
 ---
 
-> **Placeholder write-up — replace this with your own.** Everything below is
-> example text so you can see the layout. Edit this file's frontmatter and body,
-> swap the images in `/public/images/projects/assistive-devices/`, and you're done.
 
 ## Overview
 
