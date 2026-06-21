@@ -43,16 +43,16 @@ export const SITE = {
 export const HERO = {
   eyebrow: 'Mechanical Engineering — Texas A&M',
   headline: 'Mark Scripsick',
-  accent: 'mechanical engineer & design-builder', // shown italic
+  accent: 'Mechanical Engineer', // shown italic
   intro:
-    'CAD and SolidWorks, robotics, and hands-on prototyping — turning ideas into parts you can hold.',
+    'CAD and SolidWorks, robotics, and hands-on prototyping',
   /** Feature image (right panel). Replace with a CAD render or project photo. */
   image: '/images/piston.png',
   imageAlt: 'Solidworks designs',
   /** Small mono caption overlaid on the image. '' to hide. */
-  imageCaption: 'Fig. 01 — Featured work',
+  imageCaption: 'Featured work',
   primary: { label: 'View Projects', href: '/projects' },
-  secondary: { label: 'Download Résumé', href: '/resume.pdf' },
+  secondary: { label: 'Download Resume', href: '/resume.pdf' },
 } as const;
 
 /**
