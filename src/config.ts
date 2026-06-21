@@ -47,8 +47,8 @@ export const HERO = {
   intro:
     'CAD and SolidWorks, robotics, and hands-on prototyping — turning ideas into parts you can hold.',
   /** Feature image (right panel). Replace with a CAD render or project photo. */
-  image: '/images/hero.svg',
-  imageAlt: 'Featured CAD render',
+  image: '/images/piston.png',
+  imageAlt: 'Solidworks designs',
   /** Small mono caption overlaid on the image. '' to hide. */
   imageCaption: 'Fig. 01 — Featured work',
   primary: { label: 'View Projects', href: '/projects' },
