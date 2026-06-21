@@ -25,7 +25,7 @@ export const SITE = {
   ogImage: '/og-image.png',
 
   /** Path to your resume PDF in /public. Replace the placeholder file. */
-  resume: '/MarkScripsick_Resume(1).pdf',
+  resume: '/MarkScripsick_Resume (1).pdf',
 
   /**
    * OPTIONAL small headshot shown in the top-left corner of the header
