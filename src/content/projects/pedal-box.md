@@ -5,10 +5,11 @@ summary: >-
   An independent design study creating a modular pedal box assembly under Formula SAE guidelines. Parts designed
   in SolidWorks as-well as FEA analysis for each part done in SolidWorks. Stress, factor of safety, and displacement constraints
   tested part by part under 2000 N load with a minimum factor of safety of 1.5 verified for each component.
-  - SolidWorks
-  - FEA
-  - Mechanical Design
-  - Assembly Design
+  
+- SolidWorks
+- FEA
+- Mechanical Design
+- Assembly Design
 heroImage: /images/projects/pedal-box/assembly-01.webp
 heroAlt: Isometric SolidWorks render of the pedal box assembly with brake and accelerator pedals mounted to a base plate
 featured: true
