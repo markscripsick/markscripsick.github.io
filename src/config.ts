@@ -37,8 +37,11 @@ export const SITE = {
 } as const;
 
 /**
- * HOME HERO — the split-screen panel. Edit the copy and feature image here.
+ * HOME HERO — the text side of the split-screen panel.
  * `accent` renders in italic serif (the editorial accent line).
+ *
+ * The right-hand panel is the auto-scrolling work strip — its images come
+ * from SHOWCASE below, not from here.
  */
 export const HERO = {
   eyebrow: 'Mechanical Engineering — Texas A&M',
@@ -46,13 +49,70 @@ export const HERO = {
   accent: 'Mechanical Engineer', // shown italic
   intro:
     'CAD and SolidWorks, robotics, and hands-on prototyping',
-  /** Feature image (right panel). Replace with a CAD render or project photo. */
-  image: '/images/piston.png',
-  imageAlt: 'Solidworks designs',
-  /** Small mono caption overlaid on the image. '' to hide. */
-  imageCaption: 'Featured work',
   primary: { label: 'View Projects', href: '/projects' },
   secondary: { label: 'Download Resume', href: '/resume.pdf' },
+} as const;
+
+/**
+ * HOME SHOWCASE — the auto-scrolling CAD strip on the home page.
+ *
+ * To add an image: drop it in public/images/showcase/ and add one line to
+ * `images` below. To remove one, delete its line. Empty the array and the
+ * whole strip disappears — nothing else to change.
+ *
+ * `caption` is the small label under each image ('' hides it).
+ * `seconds` is how long one full loop takes — larger = slower.
+ */
+export const SHOWCASE = {
+  label: 'Selected CAD Work',
+  seconds: 80,
+  images: [
+    {
+      src: '/images/piston.png',
+      alt: 'SolidWorks render of a piston and connecting rod assembly',
+      caption: 'Piston & connecting rod',
+    },
+    {
+      src: '/images/showcase/cad-01.webp',
+      alt: 'SolidWorks render of a conical part with radial internal vanes',
+      caption: 'Vaned cone',
+    },
+    {
+      src: '/images/showcase/cad-02.webp',
+      alt: 'SolidWorks render of a cast housing with cylindrical bosses and a curved channel',
+      caption: 'Cast housing',
+    },
+    {
+      src: '/images/showcase/cad-03.webp',
+      alt: 'SolidWorks render of a threaded flange with bolt holes',
+      caption: 'Threaded flange',
+    },
+    {
+      src: '/images/showcase/cad-04.webp',
+      alt: 'SolidWorks render of a circular plate with six cylindrical bosses',
+      caption: 'Bossed plate',
+    },
+    {
+      src: '/images/projects/pedal-box/assembly-01.webp',
+      alt: 'Isometric render of the pedal box assembly',
+      caption: 'Pedal box — isometric',
+    },
+    {
+      src: '/images/projects/pedal-box/assembly-02.webp',
+      alt: 'Side view of a pedal showing the master cylinder and pushrod linkage',
+      caption: 'Pedal box — pushrod linkage',
+    },
+    {
+      src: '/images/projects/pedal-box/assembly-03.webp',
+      alt: 'Detail view of the pedal box linkage and mounting hardware',
+      caption: 'Pedal box — linkage detail',
+    },
+    {
+      src: '/images/projects/pedal-box/assembly-04.webp',
+      alt: 'Rear isometric view of the pedal box showing both master cylinders',
+      caption: 'Pedal box — dual master cylinders',
+    },
+  ],
 } as const;
 
 /**
