@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Gallery from '../../components/Gallery.astro';
+import Downloads from '../../components/Downloads.astro';
 import ModelViewer from '../../components/ModelViewer.astro';
 
 export async function getStaticPaths() {
@@ -75,6 +76,68 @@ const dateLabel = data.date.toLocaleDateString('en-US', {
         <Content />
       </div>
 
+      <!--
+        SIMULATION / FEA — renders only if the project has `feaStudies`.
+        One row of plots per part; `contain` fit so legends are never cropped.
+      -->
+      {
+        data.feaStudies.length > 0 && (
+          <section class="proj-section">
+            <p class="eyebrow">Simulation</p>
+            <h2>FEA results by part</h2>
+            <div class="fea-groups">
+              {data.feaStudies.map((group) => (
+                <article class="fea-group">
+                  <div class="fea-head">
+                    <h3>{group.part}</h3>
+                    {group.note && <span class="fea-note">{group.note}</span>}
+                  </div>
+                  <Gallery
+                    images={group.images}
+                    label=""
+                    fit="contain"
+                    ratio="16 / 9"
+                    min="260px"
+                  />
+                </article>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      <!-- FULL ASSEMBLY — renders only if the project has `assemblyImages`. -->
+      {
+        data.assemblyImages.length > 0 && (
+          <section class="proj-section">
+            <p class="eyebrow">Assembly</p>
+            <h2>Full assembly</h2>
+            <Gallery
+              images={data.assemblyImages}
+              label=""
+              fit="contain"
+              ratio="4 / 3"
+              min="240px"
+            />
+          </section>
+        )
+      }
+
+      <!-- CAD FILES — renders only if there are `downloads` or a note. -->
+      {
+        (data.downloads.length > 0 || data.downloadsNote) && (
+          <section class="proj-section">
+            <p class="eyebrow">Downloads</p>
+            <h2>CAD part files</h2>
+            <Downloads
+              items={data.downloads}
+              note={data.downloadsNote}
+              label=""
+            />
+          </section>
+        )
+      }
+
       <!-- Image gallery (renders only if `gallery` has entries) -->
       <Gallery images={data.gallery} />
 
@@ -134,5 +197,47 @@ const dateLabel = data.date.toLocaleDateString('en-US', {
   }
   .model {
     margin-top: 2.5rem;
+  }
+
+  /* ── Project sub-sections (FEA / assembly / downloads) ── */
+  .proj-section {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    padding-top: clamp(2rem, 4vw, 3rem);
+    border-top: 1px solid var(--border-soft);
+  }
+  .proj-section > h2 {
+    margin: 0 0 0.5rem;
+  }
+
+  .fea-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 2.75rem;
+    margin-top: 2rem;
+  }
+  .fea-head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .fea-head h3 {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+  .fea-note {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.64rem;
+    color: var(--ink-faint);
+  }
+  /* Tighten the gallery spacing when it sits inside a group. */
+  .fea-group :global(.gallery),
+  .proj-section :global(.gallery),
+  .proj-section :global(.downloads) {
+    margin-top: 1rem;
   }
 </style>

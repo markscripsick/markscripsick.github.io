@@ -15,6 +15,13 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+/** One image entry — reused by the gallery, FEA studies, and assembly shots. */
+const image = z.object({
+  src: z.string(),
+  alt: z.string(),
+  caption: z.string().optional(),
+});
+
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
   schema: z.object({
@@ -31,15 +38,57 @@ const projects = defineCollection({
     /** Alt text for the hero image (accessibility — describe the image). */
     heroAlt: z.string().default(''),
     /** Image gallery — add as many as you like. caption is optional. */
-    gallery: z
+    gallery: z.array(image).default([]),
+
+    /**
+     * OPTIONAL — Simulation / FEA results, grouped by part. Each group gets
+     * its own heading and image row on the project page. Leave it out
+     * entirely for projects with no analysis work.
+     *
+     *   feaStudies:
+     *     - part: Base Plate
+     *       note: 2000 N pedal load        # optional small print
+     *       images:
+     *         - src: /images/.../base-plate-stress.webp
+     *           alt: Von Mises stress plot of the base plate
+     *           caption: Von Mises stress
+     */
+    feaStudies: z
       .array(
         z.object({
-          src: z.string(),
-          alt: z.string(),
-          caption: z.string().optional(),
+          part: z.string(),
+          note: z.string().optional(),
+          images: z.array(image).default([]),
         }),
       )
       .default([]),
+
+    /** OPTIONAL — Full-assembly views, shown in their own section. */
+    assemblyImages: z.array(image).default([]),
+
+    /**
+     * OPTIONAL — Downloadable files (CAD parts, drawings, a ZIP of the
+     * whole assembly). Put the files in public/files/... and link them:
+     *
+     *   downloads:
+     *     - label: Base Plate
+     *       file: /files/pedal-box/base-plate.SLDPRT
+     *       format: SLDPRT          # optional
+     *       size: 1.2 MB            # optional
+     */
+    downloads: z
+      .array(
+        z.object({
+          label: z.string(),
+          file: z.string(),
+          format: z.string().optional(),
+          size: z.string().optional(),
+        }),
+      )
+      .default([]),
+
+    /** OPTIONAL — small note shown in the files section (e.g. "on request"). */
+    downloadsNote: z.string().optional(),
     /** Optional external link (live demo, write-up, repo, etc.). */
     externalLink: z.string().url().optional(),
     /** Label for the external link button (defaults to "View project"). */

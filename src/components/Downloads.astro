@@ -1,0 +1,133 @@
+---
+/**
+ * File-download list for a project (CAD parts, drawings, a ZIP, etc.).
+ *
+ * Driven entirely by frontmatter — see `downloads` / `downloadsNote` in
+ * src/content.config.ts. To add a file:
+ *   1. put it in  public/files/<project>/<file>
+ *   2. add one entry under `downloads:` in the project's .md
+ */
+interface DownloadItem {
+  label: string;
+  file: string;
+  format?: string;
+  size?: string;
+}
+interface Props {
+  items: DownloadItem[];
+  note?: string;
+  label?: string;
+}
+const { items, note, label = 'Files' } = Astro.props;
+---
+
+{
+  (items.length > 0 || note) && (
+    <section class="downloads" aria-label="Downloadable files">
+      <p class="d-label">{label}</p>
+
+      {items.length > 0 && (
+        <ul class="d-list">
+          {items.map((item) => (
+            <li>
+              <a class="d-row" href={item.file} download>
+                <span class="d-name">{item.label}</span>
+                <span class="d-meta">
+                  {item.format && <span class="d-fmt">{item.format}</span>}
+                  {item.size && <span class="d-size">{item.size}</span>}
+                  <span class="d-arrow" aria-hidden="true">
+                    ↓
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {note && <p class="d-note">{note}</p>}
+    </section>
+  )
+}
+
+<style>
+  .downloads {
+    margin-top: 3rem;
+  }
+  .d-label {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    margin: 0 0 1rem;
+  }
+  .d-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .d-list > li + li {
+    border-top: 1px solid var(--border-soft);
+  }
+  .d-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 1.15rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background-color 0.2s var(--ease);
+  }
+  .d-row:hover {
+    background: var(--surface-2);
+  }
+  .d-name {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    min-width: 0;
+  }
+  .d-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex: none;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.62rem;
+    color: var(--ink-faint);
+  }
+  .d-fmt {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.2rem 0.4rem;
+  }
+  .d-arrow {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    transition: transform 0.2s var(--ease);
+  }
+  .d-row:hover .d-arrow {
+    transform: translateY(2px);
+    color: var(--ink);
+  }
+  .d-note {
+    margin: 1rem 0 0;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+  @media (max-width: 520px) {
+    .d-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+</style>

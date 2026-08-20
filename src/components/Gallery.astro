@@ -9,6 +9,14 @@
  *
  * Each image is { src, alt, caption? }. Drop your SolidWorks renders,
  * photos, and screenshots into /public/images/... and reference the path.
+ *
+ * Props you can tune when reusing it elsewhere:
+ *   label  — small mono heading above the grid ('' hides it)
+ *   fit    — 'cover' crops to fill the tile (photos);
+ *            'contain' shows the WHOLE image (use for FEA plots, drawings,
+ *            or anything with a legend/labels you must not crop)
+ *   ratio  — tile aspect ratio, e.g. '4 / 3' or '16 / 9'
+ *   min    — minimum tile width before the grid wraps
  */
 interface GalleryImage {
   src: string;
@@ -17,14 +25,29 @@ interface GalleryImage {
 }
 interface Props {
   images: GalleryImage[];
+  label?: string;
+  fit?: 'cover' | 'contain';
+  ratio?: string;
+  min?: string;
 }
-const { images } = Astro.props;
+const {
+  images,
+  label = 'Gallery',
+  fit = 'cover',
+  ratio = '4 / 3',
+  min = '220px',
+} = Astro.props;
 ---
 
 {
   images.length > 0 && (
-    <section class="gallery" aria-label="Project gallery">
-      <p class="g-label">Gallery</p>
+    <section
+      class="gallery"
+      aria-label={label || 'Image gallery'}
+      data-fit={fit}
+      style={`--g-fit:${fit};--g-ratio:${ratio};--g-min:${min};`}
+    >
+      {label && <p class="g-label">{label}</p>}
       <ul class="grid">
         {images.map((img, i) => (
           <li>
@@ -43,6 +66,7 @@ const { images } = Astro.props;
                 height="450"
               />
             </button>
+            {img.caption && <p class="t-cap">{img.caption}</p>}
           </li>
         ))}
       </ul>
@@ -72,6 +96,7 @@ const { images } = Astro.props;
           const dialog = root.querySelector('.lightbox');
           const lbImg = root.querySelector('.lb-img');
           const lbCap = root.querySelector('.lb-caption');
+          const single = images.length < 2;
           let current = 0;
 
           const show = (i) => {
@@ -93,12 +118,15 @@ const { images } = Astro.props;
           root.querySelector('.lb-close').addEventListener('click', () =>
             dialog.close(),
           );
-          root
-            .querySelector('.lb-prev')
-            .addEventListener('click', () => show(current - 1));
-          root
-            .querySelector('.lb-next')
-            .addEventListener('click', () => show(current + 1));
+          const prev = root.querySelector('.lb-prev');
+          const next = root.querySelector('.lb-next');
+          // Hide the arrows when there's nothing to navigate to.
+          if (single) {
+            prev.hidden = true;
+            next.hidden = true;
+          }
+          prev.addEventListener('click', () => show(current - 1));
+          next.addEventListener('click', () => show(current + 1));
 
           dialog.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') show(current + 1);
@@ -116,7 +144,7 @@ const { images } = Astro.props;
 
 <style>
   .gallery {
-    margin-top: 3rem;
+    margin-top: 2rem;
   }
   .g-label {
     font-family: var(--font-mono);
@@ -131,8 +159,11 @@ const { images } = Astro.props;
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 0.85rem;
+    grid-template-columns: repeat(auto-fit, minmax(var(--g-min), 1fr));
+    gap: 1rem;
+  }
+  .grid > li {
+    min-width: 0;
   }
   .tile {
     display: block;
@@ -143,7 +174,7 @@ const { images } = Astro.props;
     overflow: hidden;
     cursor: zoom-in;
     background: var(--surface-2);
-    aspect-ratio: 4 / 3;
+    aspect-ratio: var(--g-ratio);
     transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease),
       border-color 0.2s var(--ease);
   }
@@ -155,7 +186,23 @@ const { images } = Astro.props;
   .tile img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: var(--g-fit);
+  }
+  /* Technical plots: show the whole frame, never crop the legend. */
+  .gallery[data-fit='contain'] .tile {
+    background: var(--paper-hi);
+  }
+  .gallery[data-fit='contain'] .tile img {
+    padding: 0.4rem;
+  }
+  .t-cap {
+    margin: 0.5rem 0 0;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.62rem;
+    line-height: 1.5;
+    color: var(--ink-faint);
   }
 
   .lightbox {
@@ -184,6 +231,7 @@ const { images } = Astro.props;
     width: auto;
     height: auto;
     border-radius: 4px;
+    background: #fff;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
   }
   .lb-caption {
