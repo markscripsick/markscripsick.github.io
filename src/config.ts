@@ -112,7 +112,7 @@ export const SHOWCASE = {
  */
 export const CONTACT = {
   email: 'markscottscripsick@gmail.com',
-  linkedin: 'https://www.linkedin.com/in/markscripsick',
+  linkedin: 'https://www.linkedin.com/in/mark-scripsick-0a7370392/',
   github: 'https://github.com/markscripsick',
 } as const;
 
