@@ -177,11 +177,6 @@ downloads:
     file: /files/pedal-box/stabilizing-cylinder-back.SLDPRT
     format: SLDPRT
     size: 76 KB
-downloadsNote: >-
-  The ZIP contains the full assembly with every part under its original
-  filename, so it opens with all references resolved. Individual parts are
-  native SolidWorks files — if you need a neutral format (STEP or Parasolid),
-  email me and I'll send one over.
 ---
 
 An independent design project: a **driver-adjustable pedal box** of the kind
