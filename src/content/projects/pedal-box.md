@@ -189,8 +189,8 @@ used in formula-style and track cars. Two Tilton master cylinders are driven
 through a balance bar so front/rear brake bias can be tuned, with the brake and
 accelerator pedals mounted to a common base plate for modularity.
 
-The goal was to take an assembly from concept through to a structurally and realistic production based
-design. 
+The goal was to take an assembly from concept through to a structurally sound,
+production-realistic design.
 
 ## Design
 
@@ -200,14 +200,14 @@ design.
   and the master cylinder mounts, keeping the whole box removable as one unit.
 - **Machined mounting blocks and brackets** locate the pedal pivots and cylinder
   axles, sized so the pivot geometry sets a usable pedal ratio.
-- **Designed with common materials** most of the assembly is made from stock 6061-T6 aluminum
+- **Designed with common materials** — most of the assembly is made from stock 6061-T6 aluminum
   for ease of manufacture and acquisition.
   
 
 ## Analysis
 
 Every load-bearing part was taken into **SolidWorks Simulation** as a static
-structural study under a **2000 N pedal load**. Following SAE requirements each part
+structural study under a **2000 N pedal load**. Following SAE requirements, each part
 was also required to demonstrate a greater than 1.5 FOS. For each part I
 looked at three plots:
 
