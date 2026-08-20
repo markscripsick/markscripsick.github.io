@@ -70,47 +70,38 @@ export const SHOWCASE = {
     {
       src: '/images/piston.png',
       alt: 'SolidWorks render of a piston and connecting rod assembly',
-      caption: 'Piston & connecting rod',
     },
     {
       src: '/images/showcase/cad-01.webp',
       alt: 'SolidWorks render of a conical part with radial internal vanes',
-      caption: 'Vaned cone',
     },
     {
       src: '/images/showcase/cad-02.webp',
       alt: 'SolidWorks render of a cast housing with cylindrical bosses and a curved channel',
-      caption: 'Cast housing',
     },
     {
       src: '/images/showcase/cad-03.webp',
       alt: 'SolidWorks render of a threaded flange with bolt holes',
-      caption: 'Threaded flange',
     },
     {
       src: '/images/showcase/cad-04.webp',
       alt: 'SolidWorks render of a circular plate with six cylindrical bosses',
-      caption: 'Bossed plate',
     },
     {
       src: '/images/projects/pedal-box/assembly-01.webp',
       alt: 'Isometric render of the pedal box assembly',
-      caption: 'Pedal box — isometric',
     },
     {
       src: '/images/projects/pedal-box/assembly-02.webp',
       alt: 'Side view of a pedal showing the master cylinder and pushrod linkage',
-      caption: 'Pedal box — pushrod linkage',
     },
     {
       src: '/images/projects/pedal-box/assembly-03.webp',
       alt: 'Detail view of the pedal box linkage and mounting hardware',
-      caption: 'Pedal box — linkage detail',
     },
     {
       src: '/images/projects/pedal-box/assembly-04.webp',
       alt: 'Rear isometric view of the pedal box showing both master cylinders',
-      caption: 'Pedal box — dual master cylinders',
     },
   ],
 } as const;
