@@ -2,10 +2,9 @@
 title: Independent Pedal Box Assembly
 date: 2026-08-20
 summary: >-
-  A self-directed design study of a driver-adjustable pedal box — dual master
-  cylinders on a balance bar, modelled in SolidWorks and validated part-by-part
-  with static FEA under a 2000 N pedal load.
-skills:
+  An independent design study creating a modular pedal box assembly under Formula SAE guidelines. Parts designed
+  in SolidWorks as-well as FEA analysis for each part done in SolidWorks. Stress, factor of safety, and displacement constraints
+  tested part by part under 2000 N load with a minimum factor of safety of 1.5 verified for each component.
   - SolidWorks
   - FEA
   - Mechanical Design
@@ -185,11 +184,10 @@ downloadsNote: >-
 An independent design project: a **driver-adjustable pedal box** of the kind
 used in formula-style and track cars. Two Tilton master cylinders are driven
 through a balance bar so front/rear brake bias can be tuned, with the brake and
-accelerator pedals mounted to a common base plate.
+accelerator pedals mounted to a common base plate for modularity.
 
-The goal was to take an assembly from concept through to a structurally
-justified design — not just something that looks right in CAD, but something
-where every load-bearing part has been checked.
+The goal was to take an assembly from concept through to a structurally and realistic production based
+design. 
 
 ## Design
 
@@ -199,26 +197,25 @@ where every load-bearing part has been checked.
   and the master cylinder mounts, keeping the whole box removable as one unit.
 - **Machined mounting blocks and brackets** locate the pedal pivots and cylinder
   axles, sized so the pivot geometry sets a usable pedal ratio.
+- **Designed with common materials** most of the assembly is made from stock 6061-T6 aluminum
+  for ease of manufacture and acquisition.
+  
 
 ## Analysis
 
 Every load-bearing part was taken into **SolidWorks Simulation** as a static
-structural study under a **2000 N pedal load** — a deliberately conservative
-figure, well above what a driver produces in normal braking. For each part I
+structural study under a **2000 N pedal load**. Following SAE requirements each part
+was also required to demonstrate a greater than 1.5 FOS. For each part I
 looked at three plots:
 
 | Plot | What it answers |
 | --- | --- |
 | **Von Mises stress** | Where is the part working hardest, and how close is that to yield? |
-| **Displacement** | Does it deflect enough to hurt pedal feel? |
+| **Displacement** | Does it deflect enough to hurt pedal feel, or cause plastic deformation? |
 | **Factor of safety** | How much margin is left at the worst point? |
 
 The results are below, part by part. The structural parts (base plate, brackets,
-mounts) came out with large margins against a 275 MPa yield — the base plate
-peaks near 24 MPa — while the **master cylinder axle** is the most heavily
+mounts) came out with large margins against a 275 MPa yield. The base plate
+peaks near 24 MPa. The **master cylinder axle** is the most heavily
 loaded component in the assembly and drove the choice of a higher-strength
 material.
-
-> **Note to self — expand this section.** Add the final material callouts, the
-> pedal ratio, and a summary table of peak stress / minimum FOS per part. The
-> plots below have the numbers.
