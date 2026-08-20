@@ -2,10 +2,12 @@
 title: Independent Pedal Box Assembly
 date: 2026-08-20
 summary: >-
-  An independent design study creating a modular pedal box assembly under Formula SAE guidelines. Parts designed
-  in SolidWorks as-well as FEA analysis for each part done in SolidWorks. Stress, factor of safety, and displacement constraints
-  tested part by part under 2000 N load with a minimum factor of safety of 1.5 verified for each component.
-  
+  An independent design study creating a modular pedal box assembly under
+  Formula SAE guidelines. Parts designed in SolidWorks as well as FEA analysis
+  for each part done in SolidWorks. Stress, factor of safety, and displacement
+  constraints tested part by part under 2000 N load with a minimum factor of
+  safety of 1.5 verified for each component.
+skills:
   - SolidWorks
   - FEA
   - Mechanical Design

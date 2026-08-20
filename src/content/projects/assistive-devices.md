@@ -8,18 +8,22 @@ skills:
   - 3D Printing
   - Design for Manufacturing
   - Networking/Outreach
-heroImage: /images/projects/assistive-devices/hero.svg
-heroAlt: Render of a 3D-printed adaptive grip device
+heroImage: /images/projects/assistive-devices/lecture-hero.webp
+heroAlt: >-
+  Teaching a 3D-printing session to a room of occupational and physical therapy
+  students, with a printer set up at the front and troubleshooting slides on screen
 gallery:
-  - src: /images/projects/assistive-devices/gallery-1.svg
-    alt: SolidWorks model of an adaptive utensil grip
-    caption: Parametric grip model — sized to a patient's hand measurements.
-  - src: /images/projects/assistive-devices/gallery-2.svg
-    alt: Printed prototype on the print bed
-    caption: First FDM prototype, printed in PLA for fit testing.
-  - src: /images/projects/assistive-devices/gallery-3.svg
-    alt: Final device in use
-    caption: Final iteration after feedback from the therapy team.
+  - src: /images/projects/assistive-devices/lecture-hero.webp
+    alt: >-
+      Wide view of the classroom during the session — students at tables with
+      laptops, a 3D printer at the front, and a slide listing common print issues
+    caption: Working through common print failures — jams, bed adhesion, and uneven layers.
+  - src: /images/projects/assistive-devices/lecture-01.webp
+    alt: Explaining device fit and sizing to the group, gesturing to show hand placement
+    caption: Talking through fit and sizing for a hand-held device.
+  - src: /images/projects/assistive-devices/lecture-02.webp
+    alt: Presenting to students seated around tables during the hands-on portion of the session
+    caption: Fielding questions during the hands-on portion of the session.
 featured: true
 # externalLink: https://example.com
 # externalLinkLabel: Read the write-up
