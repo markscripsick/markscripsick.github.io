@@ -22,12 +22,29 @@
   --ink-soft: #4a473f; /* secondary text */
   --ink-faint: #6c685d; /* muted meta / mono labels */
 
-  /* ── Gray accents (replaces the reference's gold) ── */
-  --char: #232019; /* charcoal — dark pill button, strong UI */
+  /* ── Charcoal (dark pills, strong UI) ── */
+  --char: #232019;
   --char-hover: #100e0a;
   --accent: var(--char); /* semantic alias used across components */
-  --accent-ink: #2c281f; /* "accent" text/links → deep warm gray */
+  --accent-ink: #2c281f;
   --accent-contrast: #f4f1ea; /* cream text on charcoal */
+
+  /* ── Forest accent — the one colour ────────────────────────────────
+     A deep forest green that sits naturally on the warm cream. Applied
+     to eyebrow labels, primary buttons and pills, the active nav item,
+     link + card hovers, status badges, and the focus ring. Re-tint the
+     whole site by changing these two values. Both clear WCAG AAA on the
+     cream base (--forest ≈ 8.1:1, --forest-deep ≈ 10.6:1), and cream
+     text on --forest is 8.1:1. */
+  --forest: #24503f;
+  --forest-deep: #1a3b2e;
+  --forest-tint: color-mix(in srgb, var(--forest) 10%, transparent);
+  --forest-line: color-mix(in srgb, var(--forest) 45%, transparent);
+
+  /* ── Sand — warm beige band used to alternate section backgrounds,
+     giving the page the cream → beige rhythm of the reference. ── */
+  --sand: #e8dfc9;
+  --sand-line: #dbd0b6;
 
   /* ── Type ── */
   --font-serif: 'Times New Roman', Times, 'Liberation Serif', 'Tinos', serif;
@@ -137,7 +154,8 @@ a {
   text-underline-offset: 0.18em;
 }
 a:hover {
-  text-decoration-color: var(--ink);
+  color: var(--forest-deep);
+  text-decoration-color: var(--forest-deep);
 }
 
 img {
@@ -156,6 +174,17 @@ img {
 
 .section {
   padding-block: clamp(3rem, 7vw, 6rem);
+}
+
+/* Warm beige band — add `band` alongside `section` to alternate the page
+   background (cream → beige) and give long pages a quiet rhythm. */
+.band {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--sand) 55%, transparent),
+    var(--sand)
+  );
+  border-block: 1px solid var(--sand-line);
 }
 
 .prose {
@@ -181,7 +210,7 @@ img {
 .prose blockquote {
   margin: 1.75rem 0;
   padding: 0.9rem 1.3rem;
-  border-left: 2px solid var(--ink-faint);
+  border-left: 2px solid var(--forest-line);
   background: var(--surface);
   color: var(--ink-soft);
   border-radius: 0 4px 4px 0;
@@ -235,7 +264,7 @@ img {
   letter-spacing: 0.24em;
   font-size: 0.7rem;
   font-weight: 500;
-  color: var(--ink-faint);
+  color: var(--forest-deep);
   margin: 0 0 1rem;
 }
 
@@ -267,11 +296,11 @@ img {
   transform: translateY(1px);
 }
 .btn-primary {
-  background: var(--char);
+  background: var(--forest);
   color: var(--accent-contrast);
 }
 .btn-primary:hover {
-  background: var(--char-hover);
+  background: var(--forest-deep);
 }
 .btn-ghost {
   background: transparent;
@@ -279,7 +308,8 @@ img {
   border-color: var(--ink);
 }
 .btn-ghost:hover {
-  background: var(--ink);
+  background: var(--forest);
+  border-color: var(--forest);
   color: var(--accent-contrast);
 }
 
@@ -310,7 +340,7 @@ img {
 
 /* ── Accessible focus ring ── */
 :focus-visible {
-  outline: 2px solid var(--char);
+  outline: 2px solid var(--forest);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -336,7 +366,7 @@ img {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  background: var(--char);
+  background: var(--forest);
   color: var(--accent-contrast);
   padding: 0.6rem 0.9rem;
   border-radius: 4px;

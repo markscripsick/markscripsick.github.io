@@ -65,7 +65,7 @@ const homeProjects = (featured.length ? featured : projects).slice(0, 3);
   </section>
 
   <!-- ── Quick links ── -->
-  <section class="section quick">
+  <section class="section quick band">
     <div class="container">
       <p class="eyebrow">Explore</p>
       <h2>Quick links</h2>
@@ -128,7 +128,7 @@ const homeProjects = (featured.length ? featured : projects).slice(0, 3);
   .hero-accent {
     font-size: clamp(1.5rem, 3.6vw, 2.4rem);
     line-height: 1.12;
-    color: var(--ink-soft);
+    color: var(--forest);
     margin: 0.35em 0 0;
   }
   .hero-intro {
@@ -259,9 +259,7 @@ const homeProjects = (featured.length ? featured : projects).slice(0, 3);
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
     gap: 1.5rem;
   }
-  .quick {
-    border-top: 1px solid var(--border-soft);
-  }
+  /* Border comes from the `band` utility so both edges match. */
   .quick h2 {
     margin-bottom: 2rem;
   }
